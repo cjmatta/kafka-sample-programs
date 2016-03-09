@@ -29,15 +29,15 @@ public class Consumer {
 
         // and the consumer
         KafkaConsumer<String, String> consumer;
+        Properties properties = new Properties();
         try (InputStream props = Resources.getResource("consumer.props").openStream()) {
-            Properties properties = new Properties();
             properties.load(props);
             if (properties.getProperty("group.id") == null) {
                 properties.setProperty("group.id", "group-" + new Random().nextInt(100000));
             }
             consumer = new KafkaConsumer<>(properties);
         }
-        consumer.subscribe(Arrays.asList("fast-messages", "summary-markers"));
+        consumer.subscribe(Arrays.asList(properties.getProperty("fast-messages.topic"), properties.getProperty("summary-markers.topic")));
         int timeouts = 0;
         //noinspection InfiniteLoopStatement
         while (true) {

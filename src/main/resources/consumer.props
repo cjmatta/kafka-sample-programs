@@ -1,4 +1,6 @@
 bootstrap.servers=localhost:9092
+fast-messages.topic=fast-messages
+summary-markers.topic=summary-markers
 group.id=test
 enable.auto.commit=true
 key.deserializer=org.apache.kafka.common.serialization.StringDeserializer
